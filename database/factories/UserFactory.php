@@ -24,13 +24,21 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'name' => $this->faker->name,
+            'email' => $this->faker->unique()->safeEmail,
+            'password' => bcrypt('admin123'), // password default
+            'role' => 'guru', // Set default role sebagai siswa
+            'nuptk' => $this->faker->numerify('#######'), // Generate NIS dummy
         ];
     }
+    // Tambahkan state khusus jika Anda ingin membuat user dengan role 'guru'
+    // public function guru()
+    // {
+    //     return $this->state([
+    //         'role' => 'guru',
+    //         'nis' => null, // Jika guru tidak memerlukan NIS
+    //     ]);
+    // }
 
     /**
      * Indicate that the model's email address should be unverified.

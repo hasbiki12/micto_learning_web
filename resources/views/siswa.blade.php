@@ -3,8 +3,16 @@
   @section('content')
     <div class="container p-2 lg:ml-4 text-sm lg:p-6">
       <h1 class="text-3xl font-semibold mb-2" >Data Siswa</h1>
-      <div class="wraper grid grid-cols-2  mt-8">
-        <div class="overflow">
+      <div class="my-5">
+        <form action="" method="GET">
+          <label class="input input-bordered w-1/2 flex flex-row-reverse items-center gap-2">
+            <button><i class="fa-solid fa-magnifying-glass"></i></button>
+            <input type="text" name="keyword" class="grow" placeholder="Ketikkan Nama" />
+          </label>
+        </form>
+      </div>
+      <div class="wraper grid grid-cols-2 mt-8">
+        <div class="overflow-x">
           <table class="md:table md:text-base">
               <thead>
                 <tr class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -39,7 +47,11 @@
                 </tr>            
                 @endforeach
               </tbody>
-          </table>    
+          </table>
+          <div class="my-5">
+            {{$siswa->withQueryString()->links()}}
+          </div>
+         
         </div>
       </div>
     </div>

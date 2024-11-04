@@ -17,10 +17,10 @@
             });
         </script>
     @endif
-    <div class="wrapper flex justify-between">
+    <div class="wrapper flex lg:gap-55 md:gap-52">
         <h1 class="text-3xl font-bold">Dashboard Admin</h1>
         <div class="wrapper flex gap-1">
-            <div class="card bg-base-100 w-32 border-2">
+            <div class="card hidden md:block bg-base-100 md:w-32 border-2">
                 <div class="card-body flex flex-row  p-2 text-center">
                     <i class="fa-regular fa-user mt-1"></i>
                   <p>{{$namaAdmin}}</p>
@@ -32,12 +32,12 @@
                     $formattedDate = $currentDateTime->locale('id')->translatedFormat('l, j F Y');
                     $formattedTime = $currentDateTime->format('H:i:s'); 
                 @endphp
-            <div class="card bg-base-100  border-2">
+            <div class="card bg-base-100 border-2 hidden md:block">
                 <div class="card-body flex flex-row  p-2 text-center">
                     <p id="realtime-date">{{ $formattedDate }}</p>
                 </div>
             </div>
-            <div class="card bg-base-100  border-2">
+            <div class="card bg-base-100  border-2 hidden md:block">
                 <div class="card-body flex flex-row  p-2 text-center">
                     <p id="realtime-clock">{{ $formattedTime }}</p>
                 </div>
@@ -47,10 +47,10 @@
     
     <p>Welcome to your dashboard page. Here is your main content.</p>
 
-    <div class="container flex justify-around w-full mt-12">
+    <div class="container md:flex md:gap-8 w-full mt-12">
         <a href="/siswa">
             <div class="card bg-base-100 md:w-96 md:h-44 shadow-xl">
-                <div class="card-body flex flex-col justify-between">
+                <div class="card-body md:w-auto flex flex-col lg:justify-between">
                   <h2 class="card-title font-medium text-lg">Total Siswa</h2>
                   <div class="card-actions justify-between md:mt-8">
                     <div class="flex flex-col">

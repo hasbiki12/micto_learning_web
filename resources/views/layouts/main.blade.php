@@ -17,7 +17,7 @@
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
         <div class="drawer-side shadow-xl">
             <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label>
-            <ul class="menu md:bg-blend-soft-light bg-base-100 text-base-content min-h-full md:w-60 lg:w-80 sm:w-60 p-4 md:text-lg">
+            <ul class="menu md:bg-blend-soft-light bg-base-100 text-base-content min-h-full md:w-46 lg:w-60 sm:w-60 p-4 md:text-lg">
                 <!-- Sidebar content -->
                 <div class="wrape flex my-3">
                     <div class="md:avatar hidden">
@@ -45,7 +45,7 @@
             </label>
     
             <!-- Main content section -->
-            <div class="container p-6 ">
+            <div class="container p-6 min-w-min">
                 @yield('content')
             </div>
         </div>
