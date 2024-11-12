@@ -19,7 +19,8 @@
                     <select id="role" name="role" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-300" onchange="toggleFields()">
                         <option value="">Pilih role</option>
                         <option value="guru">Guru</option>
-                        <option value="siswa">Siswa</option>
+                        <option value="siswa">Siswa</option>    
+                        <option value="admin">Admin</option>
                     </select>
                 </div>
                 <div id="nis-field" class="mt-2 hidden">

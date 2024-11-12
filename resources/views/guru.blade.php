@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('title', 'Data Guru')
   @section('content')
-    <div class="container p-6">
+    <div class="container lg:ml-4 p-6">
       <h1 class="text-3xl font-semibold" >Data Guru</h1>
       <div class="my-5">
         <form action="" method="GET">

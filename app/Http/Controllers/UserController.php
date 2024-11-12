@@ -9,6 +9,7 @@ use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AddUserRequest;
 use App\Http\Requests\EditGuruRequest;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\UserDetailProfileResource;
 
 class UserController extends Controller
@@ -102,7 +103,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:50',
             'email' => 'required|email|max:50|unique:users,email,' . $guru->id, // Mengecualikan email user yang sedang diedit
-            'nuptk' => 'required|max:19|unique:users,nuptk,' . $guru->id, // Mengecualikan nuptk user yang sedang diedit
+            'nuptk' => 'max:19|unique:users,nuptk,' . $guru->id, // Mengecualikan nuptk user yang sedang diedit
         ],[
             'nuptk.required' => 'NUPTK harus diisi.',
             'nuptk.unique' => 'NUPTK sudah terdaftar, Silakan gunakan NUPTK lain.',
@@ -122,6 +123,5 @@ class UserController extends Controller
         
         session()->flash('success', 'Data berhasil dihapus.');
         return redirect()->route('dashboard');
-
     }
 }

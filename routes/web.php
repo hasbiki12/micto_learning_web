@@ -8,14 +8,15 @@ use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthenticationController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/login', [LoginController::class, 'showLoginPage'])->name('login');
-Route::post('/login', [AuthenticationController::class, 'login'])->name('login_post');
+Route::get('/', [LoginController::class, 'showLoginPage'])->name('login');
+Route::post('/', [AuthenticationController::class, 'login'])->name('login_post');
+Route::post('/logout', [AuthenticationController::class, 'logoutWeb'])->name('logoutWeb');
 
-Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
+Route::get('/dashboard',[DashboardController::class,'dashboard'])->middleware('auth')->name('dashboard');;
 Route::get('/siswa',[SiswaController::class,'siswaPage'])->name('siswaPage');
 
 Route::get('/add_user',[UserController::class,'create']);

@@ -5,7 +5,7 @@
       <h1 class="text-3xl font-semibold mb-2" >Data Siswa</h1>
       <div class="my-5">
         <form action="" method="GET">
-          <label class="input input-bordered w-1/2 flex flex-row-reverse items-center gap-2">
+          <label class="input input-bordered w-1/2 border flex flex-row-reverse items-center gap-2">
             <button><i class="fa-solid fa-magnifying-glass"></i></button>
             <input type="text" name="keyword" class="grow" placeholder="Ketikkan Nama" />
           </label>

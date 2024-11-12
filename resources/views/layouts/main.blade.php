@@ -11,7 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
-<body>
+<body">
     
     <div class="drawer md:drawer-open">
         <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
@@ -32,7 +32,10 @@
                 <li><a href="/siswa">Data Siswa</a></li>
                 <li><a href="/guru">Data Guru</a></li>
                 <li><a href="/add_user">Tambah akun</a></li>
-                <li><a>Keluar</a></li>
+                <li><a href="#" onclick="confirmLogout(event)">Keluar</a></li>
+                <form id="logout-form" action="{{ route('logoutWeb') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
             </ul>
         </div>
         
@@ -45,10 +48,32 @@
             </label>
     
             <!-- Main content section -->
-            <div class="container p-6 min-w-min">
+            <div class="container p-6 w-full md:w-4/4">
                 @yield('content')
             </div>
         </div>
     </div>
+
+    {{-- Konfirmasi logout --}}
+    <script>
+        function confirmLogout(event) {
+            event.preventDefault(); // Mencegah aksi default link
+    
+            Swal.fire({
+                title: 'Apakah Anda yakin ingin keluar?',
+                text: "Anda akan keluar dari sesi saat ini.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, keluar!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('logout-form').submit(); // Kirim form logout
+                }
+            });
+        }
+    </script>
 </body>
 </html>

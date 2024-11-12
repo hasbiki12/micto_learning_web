@@ -10,9 +10,8 @@ class DashboardController extends Controller
     {
         $totalSiswa = User::where('role', 'siswa')->count(); // Hitung jumlah user dengan role siswa
         $totalGuru = User::where('role', 'guru')->count(); // Hitung jumlah user dengan role siswa
-        $namaAdmin = User::where('role','admin')->value('name');
         $currentDateTime = Carbon::now(); // Mendapatkan waktu sekarang
-        return view('dashboard', compact('totalSiswa','totalGuru','namaAdmin','currentDateTime'));
+        return view('dashboard', compact('totalSiswa','totalGuru','currentDateTime'));
     }
     
 } 

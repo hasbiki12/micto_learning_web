@@ -17,15 +17,9 @@
             });
         </script>
     @endif
-    <div class="wrapper flex lg:gap-55 md:gap-52">
-        <h1 class="text-3xl font-bold">Dashboard Admin</h1>
+    <div class="flex md:justify-between">
+        <h1 class="text-3xl font-bold">Dashboard</h1>
         <div class="wrapper flex gap-1">
-            <div class="card hidden md:block bg-base-100 md:w-32 border-2">
-                <div class="card-body flex flex-row  p-2 text-center">
-                    <i class="fa-regular fa-user mt-1"></i>
-                  <p>{{$namaAdmin}}</p>
-                </div>
-            </div>
                 @php
                     // Format: Hari, Tanggal/Bulan/Tahun 
                     $currentDateTime = \Carbon\Carbon::now();
@@ -45,9 +39,9 @@
         </div>
     </div>
     
-    <p>Welcome to your dashboard page. Here is your main content.</p>
+    <p class="mt-4">Welcome to your dashboard page. Here is your main content Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam, ab!</p>
 
-    <div class="container md:flex md:gap-8 w-full mt-12">
+    <div class="container md:flex gap-2 w-full mt-12">
         <a href="/siswa">
             <div class="card bg-base-100 md:w-96 md:h-44 shadow-xl">
                 <div class="card-body md:w-auto flex flex-col lg:justify-between">
