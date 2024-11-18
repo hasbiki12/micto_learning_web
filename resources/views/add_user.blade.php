@@ -2,8 +2,8 @@
 @section('title', 'Dashboard')
 @section('content')
     <div class="flex justify-center mt-12">
-        <div class="bg-white shadow-md rounded-lg p-6 w-96">
-            <h2 class="text-xl font-semibold text-center mb-4">Tambah Siswa</h2>
+        <div class="bg-white shadow-xl rounded-lg p-6 w-96">
+            <h2 class="text-xl font-semibold text-center mb-4">Tambah Pengguna</h2>
             <form id="user-form" method="post" action="{{ route('users.store') }}">
                 @csrf
                 <div class="mb-4">
@@ -22,7 +22,7 @@
                         <option value="siswa">Siswa</option>    
                         <option value="admin">Admin</option>
                     </select>
-                </div>
+                </div>  
                 <div id="nis-field" class="mt-2 hidden">
                     <label for="nis" class="block text-sm font-medium text-gray-700">NIS</label>
                     <input type="text" id="nis" name="nis" class="mb-4 mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring focus:ring-blue-300" placeholder="Masukkan NIS">

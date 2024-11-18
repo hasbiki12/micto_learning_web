@@ -21,8 +21,8 @@ class UserSeeder extends Seeder
         //     },
         // ]);
 
-        User::factory()->count(50)->create([
-            'role' => 'guru',
+        User::factory()->count(20)->create([
+            'role' => 'siswa',
             'nuptk' => function () {
                 return fake()->numerify('#######');
             },

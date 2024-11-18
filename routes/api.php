@@ -24,7 +24,12 @@ Route::middleware('auth:sanctum')->group(function () {
     // Route::put('/materi/{id}', [MateriController::class, 'update']);
     Route::patch('/materi/{id}', [MateriController::class, 'update']);
     Route::delete('/materi/{id}', [MateriController::class, 'destroy']);    
+});
+
+Route::middleware('auth:sanctum')->group(function () {
     Route::get('/bab', [BabController::class, 'index']);
     Route::post('/bab', [babController::class, 'store']);
+    Route::get('/bab/{id}', [BabController::class, 'show']);
+    Route::patch('/bab/{id}', [BabController::class, 'update']);
     Route::delete('/bab/{id}', [BabController::class, 'destroy']);    
 });

@@ -19,7 +19,10 @@ class MateriDetailResource extends JsonResource
                 'id' => $this->id,
                 'judul' => $this->judul,
                 'deskripsi' => $this->deskripsi,
-                'file_path' => $this->file_path,
+                // 'file_path' => $this->file_path,
+                // 'file_path' => $this->file_path ? url('storage/' . $this->file_path) : null,
+                'file_path' => asset('storage/' . $this->file_path),
+
                 'user_name' => $this->user ? $this->user->name : null,
                 'judul_bab' => $this->bab ? $this->bab->judul_bab : null,
                 // 'created_at' => $this->created_at,

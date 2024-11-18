@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Bab;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\BabDetailResouce;
 use Illuminate\Support\Facades\Auth;
 
 class BabController extends Controller
@@ -34,6 +35,28 @@ class BabController extends Controller
         return response()->json(['message' => 'Bab berhasil dibuat', 'Bab' => $bab]);
     }
 
+    public function update(Request $request, $id)
+    {
+        // Validasi input
+        $validated = $request->validate([
+            'judul_bab' => 'sometimes|string|max:50',
+        ]);
+        
+        // Ambil materi berdasarkan ID
+        $bab = Bab::findOrFail($id);
+
+        // validasi edit hanya oleh user yang buat dan dengan role guru
+        $user = Auth::user();
+        if ($bab->user_id !== $user->id || $user->role !== 'guru') { 
+            return response()->json(['message' => 'Anda tidak berhak memperbarui materi ini.'], 403);
+        }
+
+        // Update materi
+        $bab->update($validated);
+
+        return new BabDetailResouce($bab);
+    }
+
     public function destroy($id)
     {
         // Ambil materi berdasarkan ID
@@ -44,7 +67,7 @@ class BabController extends Controller
         if ($bab->user_id !== $user->id || $user->role !== 'guru') { 
             return response()->json(['message' => 'Anda tidak berhak menghapus Bab ini.'], 403);
         }
-
+        
         // Hapus materi
         $bab->delete();
 

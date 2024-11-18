@@ -20,7 +20,9 @@ class MateriController extends Controller
                 'id' => $item->id,
                 'judul' => $item->judul,
                 'deskripsi' => $item->deskripsi,
-                'file_path' => $item->file_path,
+                // 'file_path' => $item->file_path,
+                // 'file_path' => $item->file_path ? url('storage/' . $item->file_path) : null,
+                'file_path' => asset('storage/' . $item->file_path),
                 'user_name' => $item->user->name, // Menampilkan nama pengguna
                 'judul_bab' => $item->bab ? $item->bab->judul_bab : null,
                 'created_at' => $item->created_at,
@@ -73,29 +75,47 @@ class MateriController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        // Validasi input
-        $validated = $request->validate([
-            'judul' => 'sometimes|string|max:50',
-            'deskripsi'=>'nullable',
-            'file' => 'nullable|file|mimes:pdf,docx,zip|max:10240', // Validasi ukuran file
-        ]);
-        
-        // Ambil materi berdasarkan ID
-        $materi = Materi::findOrFail($id);
+{
+    // Validasi input
+    $validated = $request->validate([
+        'judul' => 'sometimes|string|max:50',
+        'deskripsi' => 'nullable',
+        'file' => 'nullable|file|mimes:pdf,docx,zip|max:10240',
+    ]);
 
-        // validasi edit hanya oleh user yang buat dan dengan role guru
-        $user = Auth::user();
-        if ($materi->user_id !== $user->id || $user->role !== 'guru') { 
-            return response()->json(['message' => 'Anda tidak berhak memperbarui materi ini.'], 403);
-        }
+    // Ambil materi berdasarkan ID
+    $materi = Materi::findOrFail($id);
 
-        // Update materi
-        $materi->update($validated);
-
-        return new MateriDetailResource($materi);
+    // Validasi edit hanya oleh user yang buat dan dengan role guru
+    $user = Auth::user();
+    if ($materi->user_id !== $user->id || $user->role !== 'guru') {
+        return response()->json(['message' => 'Anda tidak berhak memperbarui materi ini.'], 403);
     }
-    
+
+    // Update field secara manual untuk menghindari masalah dengan `sometimes`
+    if ($request->has('judul')) {
+        $materi->judul = $request->judul;
+    }
+
+    if ($request->has('deskripsi')) {
+        $materi->deskripsi = $request->deskripsi;
+    }
+
+    // Cek apakah ada file yang di-upload
+    if ($request->hasFile('file')) {
+        $file = $request->file('file')->store('materi_files', 'public');
+        $materi->file_path = $file;
+    }
+
+    // Simpan perubahan
+    $materi->save();
+
+    // Refresh model untuk memastikan data terbaru dikembalikan
+    $materi->refresh();
+
+    return new MateriDetailResource($materi);
+}
+
     public function destroy($id)
     {
         // Ambil materi berdasarkan ID

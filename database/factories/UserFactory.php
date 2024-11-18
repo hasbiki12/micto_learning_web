@@ -27,8 +27,8 @@ class UserFactory extends Factory
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->safeEmail,
             'password' => bcrypt('admin123'), // password default
-            'role' => 'guru', // Set default role sebagai siswa
-            'nuptk' => $this->faker->numerify('#######'), // Generate NIS dummy
+            'role' => 'siswa', // Set default role sebagai siswa
+            'nis' => $this->faker->numerify('#######'), // Generate NIS dummy
         ];
     }
     // Tambahkan state khusus jika Anda ingin membuat user dengan role 'guru'
