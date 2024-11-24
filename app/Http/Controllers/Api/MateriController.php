@@ -6,6 +6,7 @@ use App\Models\Materi;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\MateriDetailResource;
 
 class MateriController extends Controller
@@ -22,7 +23,7 @@ class MateriController extends Controller
                 'deskripsi' => $item->deskripsi,
                 // 'file_path' => $item->file_path,
                 // 'file_path' => $item->file_path ? url('storage/' . $item->file_path) : null,
-                'file_path' => asset('storage/' . $item->file_path),
+                'file_path' => asset('storage/materi_files/' . $item->file_path),
                 'user_name' => $item->user->name, // Menampilkan nama pengguna
                 'judul_bab' => $item->bab ? $item->bab->judul_bab : null,
                 'created_at' => $item->created_at,
@@ -39,7 +40,9 @@ class MateriController extends Controller
         if (!$materi) {
             return response()->json(['message' => 'Materi tidak ditemukan'], 404);
         }
-    
+        // Validasi eksistensi file
+       
+        
         return new MateriDetailResource($materi);
     }
 
@@ -49,7 +52,7 @@ class MateriController extends Controller
         $validated = $request->validate([
             'judul' => 'required|string|max:50',
             'bab_id' => 'required|exists:bab,id',
-            'file'  => 'nullable|file|mimes:pdf,docx,zip,png,jpg,jpeg|max:10240', // Validasi ukuran file
+            'file'  => 'nullable|file|mimes:pdf,docx,zip,png,jpg,jpeg,mp4|max:10240', // Validasi ukuran file
         ]);
 
         //validasi role yang sedang akses adalah guru
@@ -80,7 +83,7 @@ class MateriController extends Controller
     $validated = $request->validate([
         'judul' => 'sometimes|string|max:50',
         'deskripsi' => 'nullable',
-        'file' => 'nullable|file|mimes:pdf,docx,zip|max:10240',
+        'file' => 'nullable|file|mimes:pdf,docx,zip,jpg,png,jpeg,mp4|max:10240',
     ]);
 
     // Ambil materi berdasarkan ID
