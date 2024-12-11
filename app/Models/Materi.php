@@ -25,4 +25,8 @@ class Materi extends Model
     {
         return $this->belongsTo(Bab::class,'bab_id', 'id');
     }
+    public function kuis()
+    {
+        return $this->hasMany(Kuis::class, 'materi_id', 'id');
+    }
 }

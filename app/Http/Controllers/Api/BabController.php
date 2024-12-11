@@ -5,18 +5,28 @@ namespace App\Http\Controllers\Api;
 use App\Models\Bab;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\BabDetailResouce;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\BabDetailResouce;
+use App\Http\Resources\MateriDetailResource;
 
 class BabController extends Controller
 {
     public function index()
-    {
-        $bab = Bab::with('materi')->get(); // Mengambil semua bab beserta materi terkait
-        return response()->json([
-        'bab' => $bab
+{
+    $bab = Bab::with(['materi' => function($query) {
+        $query->with('kuis'); // Pastikan memuat relasi kuis jika diperlukan
+    }])->get();
+
+    return response()->json([
+        'bab' => $bab->map(function($b) {
+            return [
+                'id' => $b->id,
+                'judul_bab' => $b->judul_bab,
+                'materi' => MateriDetailResource::collection($b->materi)
+            ];
+        })
     ]);
-    }
+}
     public function store(Request $request){
         $validated = $request->validate([
             'judul_bab' => 'required|string|max:50',

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Api\BabController;
+use App\Http\Controllers\Api\KuisController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Api\MateriController;
 use App\Http\Controllers\AuthenticationController;
@@ -32,4 +33,30 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/bab/{id}', [BabController::class, 'show']);
     Route::patch('/bab/{id}', [BabController::class, 'update']);
     Route::delete('/bab/{id}', [BabController::class, 'destroy']);    
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+   //menampilkan daftar kuis
+   Route::get('/kuis',[KuisController::class, 'index']);
+
+   //menampilkan kuis by id
+   Route::get('/kuis/{id}', [KuisController::class, 'show']);
+   
+    // Menampilkan judul kuis dari materi
+    Route::get('/judul-kuis',[KuisController::class, 'getMateriTitles']);
+
+    // Menambah kuis baru
+    Route::post('/kuis',[KuisController::class, 'addKuis']);
+
+    // Mengedit kuis
+    Route::patch('/kuis/{id}', [KuisController::class, 'editKuis']);
+
+    // Menghapus kuis
+    Route::delete('/kuis/{id}', [KuisController::class, 'deleteKuis']);
+
+    //menampilkan daftar pertanyaan
+   Route::get('/pertanyaan',[KuisController::class, 'getSoalGrouped']);
+
+     // Menambah pertanyaan untuk kuis
+    Route::post('/pertanyaan-kuis',[KuisController::class, 'addPertanyaan']);
 });

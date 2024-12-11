@@ -6,7 +6,6 @@ use App\Models\Materi;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\MateriDetailResource;
 
 class MateriController extends Controller
@@ -16,32 +15,27 @@ class MateriController extends Controller
         // Mengambil semua materi
         $materi = Materi::with(['user','bab:id,judul_bab'])->get();
 
-        return response()->json($materi->map(function ($item) {
+        return response()->json([
+            'materi'=>$materi->map(function ($m) {
             return [
-                'id' => $item->id,
-                'judul' => $item->judul,
-                'deskripsi' => $item->deskripsi,
-                // 'file_path' => $item->file_path,
-                // 'file_path' => $item->file_path ? url('storage/' . $item->file_path) : null,
-                'file_path' => asset('storage/materi_files/' . $item->file_path),
-                'user_name' => $item->user->name, // Menampilkan nama pengguna
-                'judul_bab' => $item->bab ? $item->bab->judul_bab : null,
-                'created_at' => $item->created_at,
-                'updated_at' => $item->updated_at,
+                'id' => $m->id,
+                'judul' => $m->judul,
+                'deskripsi' => $m->deskripsi,
+                'file_path' => asset('storage/materi_files/' . $m->file_path),
+                'user_name' => $m->user->name, // Menampilkan nama pengguna
+                'judul_bab' => $m->bab ? $m->bab->judul_bab : null,
             ];
-        }));
+        })]);
     }
 
     public function show($id)
     {
         // Mengambil detail materi berdasarkan ID dari MateriResource.php
-        $materi = Materi::with('user')->find($id);
+        $materi = Materi::with('user','kuis')->find($id);
 
         if (!$materi) {
             return response()->json(['message' => 'Materi tidak ditemukan'], 404);
         }
-        // Validasi eksistensi file
-       
         
         return new MateriDetailResource($materi);
     }
