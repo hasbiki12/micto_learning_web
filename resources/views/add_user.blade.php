@@ -1,6 +1,18 @@
 @extends('layouts.main')
 @section('title', 'Dashboard')
 @section('content')
+
+@if(session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                showConfirmButton: true,
+            });
+        </script>
+    @endif
+
     <div class="flex justify-center mt-12">
         <div class="bg-white shadow-xl rounded-lg p-6 w-96">
             <h2 class="text-xl font-semibold text-center mb-4">Tambah Pengguna</h2>

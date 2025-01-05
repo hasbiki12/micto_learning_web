@@ -54,7 +54,8 @@ class UserController extends Controller
 
         $user->save();
         session()->flash('success', 'Data berhasil disimpan.');
-        return redirect()->route('dashboard');
+        // return redirect()->route('dashboard');
+        return view('add_user');
 
     }
 
